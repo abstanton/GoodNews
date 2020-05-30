@@ -6,6 +6,7 @@ from google.cloud.language import types
 client = language.LanguageServiceClient()
 
 
+# give text from argument a sentiment score between -1 and 1
 def score(text):
     scores = []
     document = types.Document(
@@ -16,4 +17,4 @@ def score(text):
         sentiment = client.analyze_sentiment(document=document).document_sentiment
         return sentiment.score
     except:
-        print("error")
+        print("analyse.py score error")
