@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Date, Text
+from sqlalchemy import Column, Integer, Date, Text, Float
 
 Base = declarative_base()
 
@@ -16,6 +16,7 @@ class NewsData(Base):
     url_to_image = Column(Text)
     date_published = Column(Date)
     content = Column(Text)
+    sentiment_score = Column(Float)
 
     def __repr__(self):
         return f'Title: {self.title}'
@@ -31,5 +32,6 @@ class NewsData(Base):
             url = self.url,
             url_to_image = self.url_to_image,
             dest_published = self.date_published,
-            content = self.content
+            content = self.content,
+            sentiment_score = self.sentiment_score
         )

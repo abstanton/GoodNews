@@ -17,10 +17,37 @@ Base.metadata.create_all(engine)
 app.config['DEBUG'] = True
 
 
-@app.route("/news")
+# return all news articles in the database
+@app.route("/news/all")
 @cross_origin()
-def news():
-    pass
+def allNews():
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    query = session.query(NewsData).all()
+    session.close()
+
+    r = []
+    for t in query:
+        r.append(t.toJson())
+    
+    return jsonify(r)
+
+
+# return articles with a sentiment score higher thank the given score 
+@app.route("/news/sentiment/<score>")
+@cross_origin()
+def goodNews(score):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    query = session.query(NewsData).all()
+    session.close()
+
+    r = []
+    for t in query:
+        if t.sentiment_score >= float(score):
+            r.append(t.toJson())
+    
+    return jsonify(r)
 
 
 app.run()
