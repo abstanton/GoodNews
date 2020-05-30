@@ -50,4 +50,4 @@ def goodNews(score):
     return jsonify(r)
 
 
-app.run()
+app.run(host='0.0.0.0')

@@ -4,6 +4,7 @@ import {Image, StyleSheet,View} from 'react-native'
 
 export default class Item extends React.Component{
     render(){
+        const sentimentScore=((this.props.article.sentiment_score+1) * 5).toFixed(1)        
         return(
             <View style={{margin: 10}}>
             <Card elevation={3}>
@@ -11,6 +12,7 @@ export default class Item extends React.Component{
                 <Card.Content>
                     <Title>{this.props.article.title}</Title>
                     <Paragraph>{this.props.article.description}</Paragraph>
+                    <Paragraph>{this.props.sentiment}</Paragraph>
                 </Card.Content>                
             </Card>
             </View>
@@ -18,8 +20,8 @@ export default class Item extends React.Component{
     }
 
     renderImage(){
-        if(this.props.article.urlToImage){
-            return(<Card.Cover source={{uri: this.props.article.urlToImage}}/>)
+        if(this.props.article.url_to_image){
+            return(<Card.Cover source={{uri: this.props.article.url_to_image}}/>)
         }
         else{
             return
