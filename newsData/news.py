@@ -1,13 +1,12 @@
 import requests
 import urllib.request, json
 from datetime import datetime
-from model import NewsData
 from analyse import score
 
-def news(thisSession):
+
+def news(thisSession, url, model, delete=True):
     try:
-        # collect the top 100 news articles for the past day from news API
-        url = "http://newsapi.org/v2/top-headlines?pageSize=100&language=en&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
+        # collect the top 100 general news articles for the past day from news API
         response = urllib.request.urlopen(url)
         data = {}
 
@@ -16,16 +15,22 @@ def news(thisSession):
 
         articles = data["articles"]
 
-        thisSession.query(NewsData).delete()
+
+        if delete:
+            thisSession.query(model).delete()
+
+        # to keep track of urls in the db and prevent duplicate articles
+        added_urls = []
 
         for article in articles:
             # discard articles without a title or without a description or content because we cannot give them sentiment scores.
-            if article['title'] is None or (article['description'] is None and article['content'] is None):
+            # discard articles with duplicate urls to already added articles
+            if article['title'] is None or (article['description'] is None and article['content'] is None) or article['url'] in added_urls:
                 continue
 
             # if the article description is None use the content for the sentiment analysis
             elif article['description'] is None:
-                newsData = NewsData(**{
+                newsModel = model(**{
                     'source_id' : article['source']['id'],
                     'source_name': article['source']['name'],
                     'author': article['author'],
@@ -40,7 +45,7 @@ def news(thisSession):
             
             # by default use the article description for the sentiment analysis
             else:
-                newsData = NewsData(**{
+                newsModel = model(**{
                     'source_id' : article['source']['id'],
                     'source_name': article['source']['name'],
                     'author': article['author'],
@@ -53,12 +58,13 @@ def news(thisSession):
                     'sentiment_score': score(article['description']),
                 })
 
-                thisSession.add(newsData)
+                thisSession.add(newsModel)
+                added_urls.append(article['url'])
 
         thisSession.commit()
 
     except Exception as e:
-        print('exception')
+        print('exception in {m}'.format(m=model))
         print(e)
         thisSession.rollback()
 
