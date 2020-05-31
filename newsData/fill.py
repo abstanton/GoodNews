@@ -5,31 +5,33 @@ from model import Base, AllNews, GeneralNews, SportsNews, TechNews, ScienceNews,
 from news import news
 
 
+api_key = '7c90aa5041e84d8f9ac24b022d5a8d77'
+url = "https://newsapi.org/v2/top-headlines?pageSize={page_size}&country={country}&category={category}&apiKey={api_key}"
+
+
 # urls for each category
 # country not specified
-all_url = "http://newsapi.org/v2/top-headlines?pageSize=100&language=en&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
+all_url = "http://newsapi.org/v2/top-headlines?pageSize={page_size}&language=en&apiKey={api_key}".format(page_size=100, api_key=api_key)
 
-# country=gb
-gb_general_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=general&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-gb_sports_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=sports&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-gb_tech_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=technology&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-gb_science_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=science&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-gb_health_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=health&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-gb_business_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=business&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-gb_entertainment_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=gb&category=entertainment&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
+gb_general_url = url.format(page_size=100, country='gb', category='general', api_key=api_key)
+gb_sports_url = url.format(page_size=100, country='gb', category='sports', api_key=api_key)
+gb_tech_url = url.format(page_size=100, country='gb', category='technology', api_key=api_key)
+gb_science_url = url.format(page_size=100, country='gb', category='science', api_key=api_key)
+gb_health_url = url.format(page_size=100, country='gb', category='health', api_key=api_key)
+gb_business_url = url.format(page_size=100, country='gb', category='business', api_key=api_key)
+gb_entertainment_url = url.format(page_size=100, country='gb', category='entertainment', api_key=api_key)
 
-# country=us
-us_general_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=general&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-us_sports_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=sports&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-us_tech_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=technology&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-us_science_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=science&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-us_health_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=health&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-us_business_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=business&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
-us_entertainment_url = "https://newsapi.org/v2/top-headlines?pageSize=100&country=us&category=entertainment&apiKey=7c90aa5041e84d8f9ac24b022d5a8d77"
+us_general_url = url.format(page_size=100, country='us', category='general', api_key=api_key)
+us_sports_url = url.format(page_size=100, country='us', category='sports', api_key=api_key)
+us_tech_url = url.format(page_size=100, country='us', category='technology', api_key=api_key)
+us_science_url = url.format(page_size=100, country='us', category='science', api_key=api_key)
+us_health_url = url.format(page_size=100, country='us', category='health', api_key=api_key)
+us_business_url = url.format(page_size=100, country='us', category='business', api_key=api_key)
+us_entertainment_url = url.format(page_size=100, country='us', category='entertainment', api_key=api_key)
 
 
 # add news article data to the database
-def fillTable():
+def fill():
     engine = create_engine("sqlite:///news.db")
 
     Base.metadata.create_all(engine)
@@ -68,4 +70,4 @@ def fillTable():
 
 
 if __name__ == '__main__':
-    fillTable()
+    fill()

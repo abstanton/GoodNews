@@ -1,13 +1,11 @@
 from flask import Flask
 from flask import jsonify
-from flask import request
 from flask_cors import CORS, cross_origin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model import AllNews, GeneralNews, SportsNews, TechNews, ScienceNews, HealthNews, BusinessNews, EntertainmentNews
 from model import Base
 import json
-import copy
 
 
 app=Flask(__name__)
@@ -15,6 +13,28 @@ cors = CORS(app)
 engine = create_engine("sqlite:///news.db")
 Base.metadata.create_all(engine)
 app.config['DEBUG'] = True
+
+
+@app.route("/")
+@cross_origin()
+def home():
+    html = """<html>
+              <head>
+              <style>
+              h1 {text-align: center;}
+              p {text-align: center;}
+              </style>
+              </head>
+
+              <body>
+              <h1>News API with Sentiment Analysis</h1>
+              <p>Created by Angus Stanton and J Keane Quigley</p>
+              <p>GitHub repository: <a href=https://www.github.com/abstanton/GoodNews>abstanton/GoodNews</a></p>
+              </body>
+              </html>
+              """
+
+    return html
 
 
 # return articles from specified categories

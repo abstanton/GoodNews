@@ -1,4 +1,3 @@
-import requests
 import urllib.request, json
 from datetime import datetime
 from analyse import score
