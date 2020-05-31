@@ -5,7 +5,7 @@ from model import Base, AllNews, GeneralNews, SportsNews, TechNews, ScienceNews,
 from news import news
 
 
-api_key = '7c90aa5041e84d8f9ac24b022d5a8d77'
+api_key = <PASTE YOUR API KEY HERE AS A STRING>
 url = "https://newsapi.org/v2/top-headlines?pageSize={page_size}&country={country}&category={category}&apiKey={api_key}"
 
 
