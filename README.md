@@ -1,5 +1,5 @@
 # GoodNews
-A news app which delivers news which can be filtered by sentiment, if you want good new, you can have it
+A news app which delivers news which can be filtered by sentiment, if you want good news, you can have it
 
 ## Oxford Hack 2020
 This is a project created for the [Oxford Hack 2020](https://oxfordhack.co.uk/) by [Angus Stanton](https://github.com/abstanton) and [J Keane Quigley](https://github.com/kquigley29).
