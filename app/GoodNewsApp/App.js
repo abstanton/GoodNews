@@ -10,6 +10,8 @@ import List from './src/Components/List'
 import {NavigationContainer} from '@react-navigation/native';
 import{createDrawerNavigator} from '@react-navigation/drawer';
 import FeedScreen from './src/Screens/FeedScreen'
+import Browser from './src/Screens/Browser';
+
 
 const theme = {
   ...DefaultTheme,
@@ -29,10 +31,16 @@ export default function App() {
         <SafeAreaView style = {styles.AndroidSafeArea}>
           <NavigationContainer>
             <Drawer.Navigator initialRouteName="All">
-              <Drawer.Screen name="All" component={FeedScreen} initialParams={{section: "all"}}/>
-              <Drawer.Screen name="Politics" component={FeedScreen} initialParams={{section: "politics"}}/>
-              <Drawer.Screen name="Sports" component={FeedScreen} initialParams={{section: "sports"}}/>
-              <Drawer.Screen name="Technology" component={FeedScreen} initialParams={{section: "technology"}}/>
+              <Drawer.Screen name="All" component={FeedScreen}/>
+              <Drawer.Screen name="General" component={FeedScreen}/>
+              <Drawer.Screen name="Sports" component={FeedScreen}/>
+              <Drawer.Screen name="Tech" component={FeedScreen}/>
+              <Drawer.Screen name="Science" component={FeedScreen} />
+              <Drawer.Screen name="Health" component={FeedScreen}/>
+              <Drawer.Screen name="Business" component={FeedScreen} />
+              <Drawer.Screen name="Entertainment " component={FeedScreen} />
+              <Drawer.Screen name=" " component={Browser} />
+
             </Drawer.Navigator>
           </NavigationContainer>
         </SafeAreaView>
@@ -40,6 +48,10 @@ export default function App() {
     </SafeAreaProvider>
 
   );
+}
+
+function hidden(){
+  return null
 }
 
 const styles = StyleSheet.create({
